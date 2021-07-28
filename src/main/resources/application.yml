@@ -26,3 +26,19 @@ flyway:
       password: secret
       schemas: mn
       default-schema: mn
+datasources:
+  default:
+    url: jdbc:postgresql://127.0.0.1:5432/db-test
+    username: postgres
+    password: secret
+    driver-class-name: org.postgresql.Driver
+    schema-generate: NONE
+    dialect: POSTGRES
+#micronaut-data-jpa
+jpa:
+  default:
+    packages-to-scan:
+      - "br.com.micronautpoc.todolist.persistence"
+    properties:
+      hibernate:
+        show_sql: false
