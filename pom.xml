@@ -114,6 +114,13 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Kafka -->
+    <dependency>
+      <groupId>io.micronaut.kafka</groupId>
+      <artifactId>micronaut-kafka</artifactId>
+      <scope>compile</scope>
+    </dependency>
+
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>

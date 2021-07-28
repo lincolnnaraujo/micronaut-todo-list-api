@@ -1,6 +1,7 @@
 package br.com.micronautpoc.todolist.controller;
 
 import br.com.micronautpoc.todolist.dto.TarefaDto;
+import br.com.micronautpoc.todolist.messagekafka.TarefasProducer;
 import br.com.micronautpoc.todolist.persistence.TarefaEntity;
 import br.com.micronautpoc.todolist.repository.TarefaRepository;
 import io.micronaut.http.HttpResponse;
@@ -14,9 +15,11 @@ import java.util.UUID;
 public class IndexController implements IndexControllerRoutes{
 
     private final TarefaRepository tarefaRepository;
+    private final TarefasProducer tarefasProducer;
 
-    IndexController(final TarefaRepository tarefaRepository){
+    IndexController(final TarefaRepository tarefaRepository, TarefasProducer tarefasProducer){
         this.tarefaRepository = tarefaRepository;
+        this.tarefasProducer = tarefasProducer;
     }
 
     @Override
@@ -41,6 +44,8 @@ public class IndexController implements IndexControllerRoutes{
 
         final TarefaEntity save = tarefaRepository.save(entity);
 
+        tarefasProducer.send("KAFKA", "Save: " + save);
+
         return HttpResponse.ok(save);
     }
 
@@ -54,9 +59,11 @@ public class IndexController implements IndexControllerRoutes{
             entity.get().setDataAtualizacao(LocalDateTime.now());
             entity.get().setFlag(tarefaDto.getFlagConclusao());
 
-            final TarefaEntity save = tarefaRepository.update(entity.get());
+            final TarefaEntity update = tarefaRepository.update(entity.get());
 
-            return HttpResponse.ok(save);
+            tarefasProducer.send("KAFKA", "Update: " + update);
+
+            return HttpResponse.ok(update);
         } else {
             return HttpResponse.notFound();
         }
@@ -68,6 +75,9 @@ public class IndexController implements IndexControllerRoutes{
 
         if (entity.isPresent()){
             tarefaRepository.delete(entity.get());
+
+            tarefasProducer.send("KAFKA", "Delete: " + id);
+
             return HttpResponse.ok("Tarefa excluída");
         }else {
             return HttpResponse.notFound("Id não encontrado");

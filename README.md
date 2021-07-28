@@ -28,3 +28,6 @@ docker-compose up
 ```
 
 - Com a imagem de pé, acesse para validar: [kafka-lenses](http://127.0.0.1:3030/)
+
+- Após realizar algumas chamadas nos endpoints (Post, Put, Delete), é possível ver que as mensagens chegaram no tópico.
+  ![alt text](src/main/resources/docs/kafka-topics-messages-ex.png)

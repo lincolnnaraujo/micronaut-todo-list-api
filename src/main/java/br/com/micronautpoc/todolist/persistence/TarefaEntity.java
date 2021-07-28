@@ -35,4 +35,16 @@ public class TarefaEntity {
 
     @Column(name = "data_alteracao")
     private LocalDateTime dataAtualizacao;
+
+    @Override
+    public String toString() {
+        return "TarefaEntity{" +
+                "id=" + id +
+                ", titulo='" + titulo + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", flag='" + flag + '\'' +
+                ", dataCriacao=" + dataCriacao +
+                ", dataAtualizacao=" + dataAtualizacao +
+                '}';
+    }
 }
