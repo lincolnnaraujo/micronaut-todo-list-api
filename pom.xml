@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>br.com.micronautpoc.todolist</groupId>
   <artifactId>todo-list</artifactId>
-  <version>0.1</version>
+  <version>1.0.0</version>
   <packaging>${packaging}</packaging>
 
   <parent>
@@ -16,6 +16,10 @@
   <properties>
     <packaging>jar</packaging>
     <jdk.version>11</jdk.version>
+    <maven.compiler.package>${jdk.version}</maven.compiler.package>
+    <maven.compiler.source>${jdk.version}</maven.compiler.source>
+    <project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF8</project.reporting.outputEncoding>
     <release.version>11</release.version>
     <micronaut.version>2.5.11</micronaut.version>
     <exec.mainClass>br.com.micronautpoc.todolist.Application</exec.mainClass>
@@ -91,6 +95,25 @@
       <artifactId>logback-classic</artifactId>
       <scope>runtime</scope>
     </dependency>
+
+    <!-- Schema Migrations -->
+    <dependency>
+      <groupId>io.micronaut.flyway</groupId>
+      <artifactId>micronaut-flyway</artifactId>
+      <version>3.7.0</version>
+    </dependency>
+    <!-- DB Driver -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
